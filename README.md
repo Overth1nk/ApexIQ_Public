@@ -191,7 +191,7 @@ Recent major overhaul to transform the interface into a polished, production-rea
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    
    # Google AI Configuration
-   GOOGLE_AI_API_KEY=your_google_ai_api_key
+   GEMINI_API_KEY=your_google_ai_api_key
    
    # Application URL
    NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -264,7 +264,7 @@ ApexIQ/
 Ensure the following environment variables are set in your production environment:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `GOOGLE_AI_API_KEY`
+- `GEMINI_API_KEY`
 - `NEXT_PUBLIC_APP_URL`
 
 ### Build Command
@@ -302,7 +302,7 @@ pnpm lint
 
 ## 🤝 Contributing
 
-This is a private project. For questions or issues, please contact the development team.
+This is a private project. For questions or issues, please contact the developer.
 
 ---
 
@@ -314,7 +314,7 @@ This project is private and proprietary. All rights reserved.
 
 ## 🆘 Support
 
-For support, bug reports, or feature requests, please contact the development team or create an issue in the project repository.
+For support, bug reports, or feature requests, please contact the developer or create an issue in the project repository.
 
 ---
 
