@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+  --color-racing-red: #d90429;
+  --color-racing-red-dark: #ef233c;
+  --color-carbon-black: #101010;
+  --color-track-grey: #2b2d42;
+  --color-silver: #8d99ae;
+  --color-off-white: #edf2f4;
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #edf2f4;
+  --foreground: #101010;
+  
+  --card: #ffffff;
+  --card-foreground: #101010;
+  
+  --popover: #ffffff;
+  --popover-foreground: #101010;
+  
+  --primary: #d90429;
+  --primary-foreground: #ffffff;
+  
+  --secondary: #8d99ae;
+  --secondary-foreground: #101010;
+  
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  
+  --accent: #d90429;
+  --accent-foreground: #ffffff;
+  
+  --destructive: #ef233c;
+  --destructive-foreground: #ffffff;
+
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #d90429;
+  
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: #101010;
+  --foreground: #edf2f4;
+  
+  --card: #1a1a1a;
+  --card-foreground: #edf2f4;
+  
+  --popover: #1a1a1a;
+  --popover-foreground: #edf2f4;
+  
+  --primary: #ef233c;
+  --primary-foreground: #ffffff;
+  
+  --secondary: #2b2d42;
+  --secondary-foreground: #edf2f4;
+  
+  --muted: #2b2d42;
+  --muted-foreground: #94a3b8;
+  
+  --accent: #ef233c;
+  --accent-foreground: #ffffff;
+  
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ffffff;
+  
+  --border: #2b2d42;
+  --input: #2b2d42;
+  --ring: #ef233c;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  font-weight: 500;
+  padding-right: 2.6rem;
+}
+
+select:focus-visible {
+  outline: none;
+}
+
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  padding-right: 2.5rem;
+}
+
+/* Custom Racing Utilities */
+.racing-gradient {
+  background: linear-gradient(135deg, var(--color-racing-red) 0%, var(--color-carbon-black) 100%);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass-panel {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}

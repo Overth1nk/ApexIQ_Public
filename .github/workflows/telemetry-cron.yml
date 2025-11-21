@@ -1,0 +1,23 @@
+name: Telemetry Cron
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-cron:
+    if: ${{ vars.RUN_CRON == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call telemetry worker endpoint
+        env:
+          CRON_ENDPOINT: ${{ secrets.CRON_ENDPOINT }}
+        run: |
+          if [ -z "$CRON_ENDPOINT" ]; then
+            echo "CRON_ENDPOINT secret is not set"
+            exit 1
+          fi
+
+          echo "Triggering $CRON_ENDPOINT"
+          curl -sSf "$CRON_ENDPOINT"
