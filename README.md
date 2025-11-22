@@ -2,6 +2,8 @@
 
 **ApexIQ** is an advanced racing telemetry analysis platform that leverages AI to provide deep insights into racing performance. Upload your telemetry data, visualize key metrics, and receive intelligent recommendations powered by Google's Gemini AI to optimize your racing strategy.
 
+To see this project in action, visit my deployment of **[ApexIQ](https://apex-iq.vercel.app)**
+
 ![Version](https://img.shields.io/badge/version-0.6.3-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-16.0.3-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)
