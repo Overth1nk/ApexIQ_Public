@@ -42,7 +42,7 @@ export default function RootLayout({
         </ThemeProvider>
         <footer>
           <div className="container mx-auto py-4 text-center text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Maayan Pollack, an aspiring developer. All rights reserved.
+            &copy; 2025 Maayan Pollack. All rights reserved.
           </div>
         </footer>
       </body>

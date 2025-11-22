@@ -57,7 +57,7 @@ export default function AboutPage() {
                         Support & Issues
                     </h2>
                     <p className="text-muted-foreground leading-relaxed mb-4">
-                        Experiencing any issues or have feedback? I'd love to hear from you!
+                        Experiencing any issues or have feedback? I&apos;d love to hear from you!
                     </p>
                     <div className="space-y-3">
                         <div>
