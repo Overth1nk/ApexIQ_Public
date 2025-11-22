@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { notFound, redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { TelemetryProcessingCard } from "@/components/telemetry/TelemetryProcessingCard";
@@ -163,6 +164,59 @@ type AIReportProps = {
   status?: string;
 };
 
+function normalizeToBulletLines(text: string) {
+  // Force spaced dash lists onto new lines to render actual bullets
+  const normalized = text.replace(/\s+-\s+/g, "\n- ").replace(/\r?\n/g, "\n");
+  return normalized
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+}
+
+function renderRichText(text: string, keyPrefix: string) {
+  const lines = normalizeToBulletLines(text);
+  const elements: ReactNode[] = [];
+  let listBuffer: string[] = [];
+
+  function flushList(index: number) {
+    if (listBuffer.length === 0) return;
+    elements.push(
+      <ul key={`${keyPrefix}-ul-${index}`} className="ml-4 list-disc space-y-1 text-muted-foreground">
+        {listBuffer.map((item, itemIndex) => (
+          <li key={`${keyPrefix}-li-${index}-${itemIndex}`} className="text-sm leading-relaxed">
+            {item}
+          </li>
+        ))}
+      </ul>
+    );
+    listBuffer = [];
+  }
+
+  lines.forEach((line, index) => {
+    if (line.startsWith("- ")) {
+      listBuffer.push(line.slice(2));
+    } else {
+      flushList(index);
+      const lower = line.toLowerCase();
+      const isSubheading =
+        lower.startsWith("what’s working:") ||
+        lower.startsWith("what's working:") ||
+        lower.startsWith("needs improvement:");
+      elements.push(
+        <p
+          key={`${keyPrefix}-p-${index}`}
+          className={`text-sm leading-relaxed ${isSubheading ? "font-semibold text-foreground" : "text-muted-foreground"}`}
+        >
+          {line}
+        </p>
+      );
+    }
+  });
+
+  flushList(lines.length);
+  return elements;
+}
+
 function AIReport({ summary, recommendations, sections, segments, status }: AIReportProps) {
   if (status === "failed") {
     return (
@@ -190,7 +244,7 @@ function AIReport({ summary, recommendations, sections, segments, status }: AIRe
         </p>
       </div>
 
-      {summary ? <p className="text-base text-foreground">{summary}</p> : null}
+      {summary ? <div className="text-base text-foreground space-y-2">{renderRichText(summary, "summary")}</div> : null}
 
       {sections ? (
         <div className="grid gap-4 md:grid-cols-2">
@@ -202,7 +256,7 @@ function AIReport({ summary, recommendations, sections, segments, status }: AIRe
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 {key}
               </p>
-              <p className="mt-2">{value}</p>
+              <div className="mt-2 space-y-2">{renderRichText(value, `section-${key}`)}</div>
             </div>
           ))}
         </div>
@@ -224,13 +278,17 @@ function AIReport({ summary, recommendations, sections, segments, status }: AIRe
                   <span className="text-xs text-muted-foreground">{segment.metric}</span>
                 ) : null}
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Issue:</span> {segment.issue}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Improvement:</span>{" "}
-                {segment.improvement}
-              </p>
+              <div className="mt-2 text-sm text-muted-foreground space-y-2">
+                <p className="leading-relaxed">
+                  <span className="font-semibold text-foreground">Issue:</span> {segment.issue}
+                </p>
+                <div>
+                  <p className="font-semibold text-foreground">Improvement:</p>
+                  <div className="mt-1 space-y-1">
+                    {renderRichText(segment.improvement, `segment-${segment.name}-${index}`)}
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -247,7 +305,9 @@ function AIReport({ summary, recommendations, sections, segments, status }: AIRe
               className="rounded-xl border border-border bg-muted/60 p-4"
             >
               <p className="text-sm font-semibold text-foreground">{item.title}</p>
-              <p className="text-sm text-muted-foreground">{item.detail}</p>
+              <div className="text-sm text-muted-foreground space-y-2">
+                {renderRichText(item.detail, `rec-${item.title}`)}
+              </div>
             </div>
           ))}
         </div>

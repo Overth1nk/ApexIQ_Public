@@ -146,9 +146,15 @@ export async function generateTelemetryInsights({
       telemetryExcerpt || "Raw CSV was empty.",
       "Guidance:",
       "- If specific track or car details are missing in metadata, provide general high-performance driving advice based on the telemetry patterns (g-forces, inputs).",
-      "- Always mention specific times/distances/gears when referencing braking or throttle events.",
-      "- Provide at least three segment entries referencing specific corners or sequences (e.g., “Turn 1 braking zone”, “Sector 2 chicane”).",
-      "- Tailor recommendations to the data trends you see instead of generic advice.",
+      "- Always mention specific evidence: distances from corner (meters/ft), speeds (mph with kph in parentheses), gears, RPM, brake %, throttle %, lateral/longitudinal G values. Avoid trivial time ranges like “0.000s-0.250s”; tie to corners, straights, or distance markers instead.",
+      '- Each sections.pace/braking/throttle/corners/sessionPlan value must be multiline and start with "What’s working:" on its own line followed by 1-2 bullet points, then "Needs improvement:" on its own line with 2-3 bullet points. Bullets must be on separate lines starting with "- " (no inline lists) and reference concrete telemetry (e.g., "brake peaks at 78% at 142 mph (228 kph) ~120m before apex; release is too early"). Avoid repeating phrasing across sections.',
+      "- Provide at least six segment entries referencing specific corners or sequences (e.g., “Abbey (T1) braking zone”, “Maggotts/Becketts/Chapel sequence”, “Hangar Straight into Stowe”). Use accurate track/section names when the track is identifiable (e.g., Silverstone corner names) or use Turn numbers.",
+      "- For every segment, include a non-empty metric summarizing the key signal (speed, RPM, brake %, throttle %, gear, G, distance marker).",
+      '- For every segment.improvement, include 3-5 bullet points separated by newline starting with "- " that describe specific corrective actions (line change with apex/exit description, brake release profile, throttle ramp timing, gear choice) and reference the evidence numbers you saw.',
+      '- Never use vague directives like "change apex"; specify how (e.g., "delay apex by ~2-3m and hold 3-4 mph (5-6 kph) higher mid-corner speed").',
+      "- Separate praise vs fixes: ensure strengths are called out in sections and recommendations distinct from the improvement bullets in segments.",
+      "- Use traditional racing units: RPM; power/torque in imperial first with metric in parentheses if mentioned (e.g., 700 lb-ft (949 Nm)); speeds mph with kph in parentheses; temps in °C; distances in meters/feet where available.",
+      "- Tailor recommendations to the data trends you see instead of generic advice and avoid redundancy across sections and segments.",
     ].join("\n");
 
     const response = await ai.models.generateContent({
