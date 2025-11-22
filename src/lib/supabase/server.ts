@@ -32,8 +32,10 @@ export function createSupabaseServerClient() {
               ...options,
             });
           });
-        } catch (error) {
-          console.warn("Unable to set cookies in server client", error);
+        } catch {
+          // The `setAll` method was called from a Server Component.
+          // This can be ignored if you have middleware refreshing
+          // user sessions.
         }
       },
     },
