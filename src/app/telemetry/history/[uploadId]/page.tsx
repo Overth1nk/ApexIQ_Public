@@ -164,6 +164,13 @@ type AIReportProps = {
   status?: string;
 };
 
+function formatSectionKey(key: string) {
+  return key
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/_/g, " ")
+    .trim();
+}
+
 function normalizeToBulletLines(text: string) {
   // Force spaced dash lists onto new lines to render actual bullets
   const normalized = text.replace(/\s+-\s+/g, "\n- ").replace(/\r?\n/g, "\n");
@@ -254,7 +261,7 @@ function AIReport({ summary, recommendations, sections, segments, status }: AIRe
               className="rounded-xl border border-border bg-muted/60 p-4 text-sm text-foreground"
             >
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                {key}
+                {formatSectionKey(key)}
               </p>
               <div className="mt-2 space-y-2">{renderRichText(value, `section-${key}`)}</div>
             </div>
