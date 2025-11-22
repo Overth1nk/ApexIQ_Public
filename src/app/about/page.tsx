@@ -51,6 +51,38 @@ export default function AboutPage() {
                     </p>
                 </div>
 
+                <div className="mt-12 p-6 rounded-xl border border-border bg-card shadow-sm hover:shadow-md transition-shadow">
+                    <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+                        <span className="w-1 h-8 bg-racing-red rounded-full"></span>
+                        Support & Issues
+                    </h2>
+                    <p className="text-muted-foreground leading-relaxed mb-4">
+                        Experiencing any issues or have feedback? I'd love to hear from you!
+                    </p>
+                    <div className="space-y-3">
+                        <div>
+                            <span className="text-primary font-semibold">Email: </span>
+                            <a
+                                href="mailto:apexiq.notify@gmail.com"
+                                className="text-muted-foreground hover:text-primary transition-colors underline"
+                            >
+                                apexiq.notify@gmail.com
+                            </a>
+                        </div>
+                        <div>
+                            <span className="text-primary font-semibold">GitHub: </span>
+                            <a
+                                href="https://github.com/Overth1nk/ApexIQ_Public/issues"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-muted-foreground hover:text-primary transition-colors underline"
+                            >
+                                Create an issue on the public repository
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-track-grey to-carbon-black text-white relative overflow-hidden">
                     <div className="relative z-10">
                         <h3 className="text-3xl font-bold mb-4">Ready to go faster?</h3>
